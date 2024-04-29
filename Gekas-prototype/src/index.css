@@ -336,7 +336,7 @@ div.inner-row button span span.cube {
 .navigation-wrapper ol li {
   border-bottom: 1px solid var(--border-color);
   padding: 1rem 0;
-  height: 5rem;
+  min-height: 5rem;
 }
 
 .navigation-wrapper ol li h5 {
@@ -552,6 +552,7 @@ p.end {
   background-color: white;
   color: var(--gekas-blue);
   text-decoration: underline;
+  border: none;
   font-size: 0.8rem;
   font-family: "Open Sans", sans-serif;
 }

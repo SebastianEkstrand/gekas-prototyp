@@ -25,19 +25,6 @@ export interface IDTours {
   steps: string[];
 }
 
-export const letters: string[] = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-];
 export const NOT_POSSIBLE_MOVEMENTS: string[] = [
   "B12",
   "E1",

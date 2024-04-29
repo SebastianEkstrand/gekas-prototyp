@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 
-import {
-  IDTours,
-  IProductCategories,
-  NOT_POSSIBLE_MOVEMENTS,
-  dTours,
-  letters,
-  mazeData,
-} from "../data/testData";
+import { IProductCategories, mazeData } from "../data/testData";
 import { NavigationRow } from "./NavigationRow";
+import {
+  findShortestSimplestPath,
+  possiblePathBeforeDRoute,
+} from "../helpers/ShortestPath";
+import {
+  Direction,
+  Kassorna,
+  calculateDataForDescription,
+} from "../helpers/makeDesciption";
 
 export interface INavigationPresenterProps {
   start: IProductCategories;
@@ -17,8 +19,13 @@ export interface INavigationPresenterProps {
 }
 
 export interface IStepsInformation {
-  text: string;
+  cubesInDirection: number;
+  direction: Direction;
   cube?: string;
+  fromCube?: string;
+  toCube?: string;
+  xAxis: boolean;
+  startDirection?: Kassorna;
 }
 
 export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
@@ -37,9 +44,10 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
    *
    */
   const [showMaze, setShowMaze] = useState<boolean>(false);
+  const distansBetweenLetters: number = 30;
+  const distansBetweenNumbers: number = 25;
 
-  let MOVEMENT_CUBES: string[] = [];
-
+  /*
   const positionInAlphabet = (myChar: string) => {
     // Convert the character into lowercase
     const myCharLowercase = myChar.toLowerCase();
@@ -112,6 +120,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
 
   const startLetterPos: number = positionInAlphabet(startLetter);
   const endLetterPos: number = positionInAlphabet(endLetter);
+  
 
   const foundYX = goYThenX().some((r) => {
     console.log(r, NOT_POSSIBLE_MOVEMENTS.includes(r));
@@ -218,18 +227,18 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
     });
   }
 
-  var unique: string[] = MOVEMENT_CUBES.filter(function (elem, index, self) {
-    return index === self.indexOf(elem);
-  });
+ 
 
+  */
+
+  /*
   const steps: IStepsInformation[] = [];
 
   const cubesToTravelYAxis: number = endLetterPos - startLetterPos;
   const cubesToTravelXAxis: number = endNumber - startNumber;
   const moveAgainstCashiers: boolean = cubesToTravelYAxis < 0;
 
-  const distansBetweenLetters: number = 30;
-  const distansBetweenNumbers: number = 25;
+  
 
   if (foundXY || foundYX) {
     // Move from Number to Number column
@@ -321,6 +330,26 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
       });
     }
   }
+ 
+
+  var unique: string[] = MOVEMENT_CUBES.filter(function (elem, index, self) {
+    return index === self.indexOf(elem);
+  });
+ */
+
+  var unique: string[] = possiblePathBeforeDRoute(
+    findShortestSimplestPath(start.cube, end.cube),
+    end.cube
+  ).filter(function (elem, index, self) {
+    return index === self.indexOf(elem);
+  });
+
+  const steps: IStepsInformation[] = calculateDataForDescription(
+    unique,
+    end.cube
+  );
+
+  console.log(steps);
   return (
     <>
       <div className="navigation-wrapper" id="way-finder">
@@ -329,15 +358,39 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
           Ny Vägbeskrivning
         </button>
         <ol>
-          <NavigationRow text={start.title} start cube={start.cube} />
+          <NavigationRow
+            initialInformation={false}
+            text={start.title}
+            start
+            cube={start.cube}
+          />
           {steps.map((step, index) => (
             <NavigationRow
-              key={"step_" + step.cube ? step.cube : index}
-              text={step.text}
+              key={
+                "step_" + index + "_" + step.cube
+                  ? step.cube
+                  : step?.fromCube
+                  ? step?.fromCube + step?.toCube
+                  : index
+              }
+              initialInformation={index === 0}
+              direction={step.direction}
               cube={step.cube}
+              fromCube={step.fromCube}
+              toCube={step.toCube}
+              startDirection={step.startDirection}
+              meters={
+                step.cubesInDirection *
+                (step.xAxis ? distansBetweenNumbers : distansBetweenLetters)
+              }
             />
           ))}
-          <NavigationRow text={end.title} end cube={end.cube} />
+          <NavigationRow
+            initialInformation={false}
+            text={end.title}
+            end
+            cube={end.cube}
+          />
         </ol>
 
         <div className="center">

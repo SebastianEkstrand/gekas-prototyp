@@ -7,7 +7,6 @@ import {
   mazeData,
   visitedData,
 } from "../data/testData";
-import { NavigationRow } from "./NavigationRow";
 
 export interface INavigationPresenterProps {
   start: IProductCategories;
