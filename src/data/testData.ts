@@ -46,8 +46,6 @@ export const NOT_POSSIBLE_MOVEMENTS: string[] = [
   "I12",
   "H11",
   "H12",
-  "G11",
-  "G12",
 ];
 export const dTours: IDTours[] = [
   {
@@ -69,7 +67,7 @@ export const dTours: IDTours[] = [
     steps: ["I7", "J7", "J8", "J9", "I9"],
   },
   {
-    steps: ["F12", "F11", "F10", "G10", "H10", "I10", "J10", "K10"],
+    steps: ["G12", "G11", "G10", "H10", "I10", "J10", "K10"],
   },
 ];
 
@@ -337,8 +335,8 @@ export const mazeData: IRowCells[] = [
       "G8",
       "G9",
       "G10",
-      "-",
-      "-",
+      "G11",
+      "G12",
     ],
   },
   {
