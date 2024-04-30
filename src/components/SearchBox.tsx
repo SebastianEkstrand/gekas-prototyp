@@ -109,7 +109,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
   };
 
   return (
-    <>
+    <div className="outer-searchbox">
       <div className="inputs-wrapper">
         <div className="inner-row">
           <button onClick={setStartingPoint}>
@@ -156,46 +156,48 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
           autoCompleteMode !== AutoCompleteType.NONE && "show"
         }`}
       >
-        <button className="close-btn" onClick={closeModal}>
-          <img src={closeSVG} alt="Stäng" />
-        </button>
-        <h3>
-          {autoCompleteMode === AutoCompleteType.START
-            ? "Ange startpunkt"
-            : autoCompleteMode === AutoCompleteType.END
-            ? "Ange slutpunkt"
-            : ""}
-        </h3>
+        <div className="modal-inner">
+          <button className="close-btn" onClick={closeModal}>
+            <img src={closeSVG} alt="Stäng" />
+          </button>
+          <h3>
+            {autoCompleteMode === AutoCompleteType.START
+              ? "Ange startpunkt"
+              : autoCompleteMode === AutoCompleteType.END
+              ? "Ange slutpunkt"
+              : ""}
+          </h3>
 
-        <div className="search-wrapper">
-          <img src={searchSVG} />
-          <input
-            className="auto-complete-input"
-            type="text"
-            value={search}
-            ref={inputRef}
-            onChange={(event) => {
-              onChangeHandler(event.target.value);
-            }}
-            placeholder="Ange produktkategori eller Takkub"
-          />
-        </div>
+          <div className="search-wrapper">
+            <img src={searchSVG} />
+            <input
+              className="auto-complete-input"
+              type="text"
+              value={search}
+              ref={inputRef}
+              onChange={(event) => {
+                onChangeHandler(event.target.value);
+              }}
+              placeholder="Ange produktkategori eller Takkub"
+            />
+          </div>
 
-        <div className="found-items">
-          <ul>
-            {found &&
-              found.map((row) => (
-                <li key={row.key}>
-                  <button onClick={() => selectOption(row)}>
-                    {row.title}
-                    <span className="area">{row.area}</span>
-                    <span className="cube">{row.cube}</span>
-                  </button>
-                </li>
-              ))}
-          </ul>
+          <div className="found-items">
+            <ul>
+              {found &&
+                found.map((row) => (
+                  <li key={row.key}>
+                    <button onClick={() => selectOption(row)}>
+                      {row.title}
+                      <span className="area">{row.area}</span>
+                      <span className="cube">{row.cube}</span>
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
