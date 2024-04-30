@@ -108,10 +108,10 @@ export const findShortestSimplestPath = (
 ): string[] => {
   let tempMovementXY: string[] = [];
   let tempMovementYX: string[] = [];
-  const startLetter = startPoint.substring(0, 1);
-  const endLetter = endPoint.substring(0, 1);
-  const startNumber = parseInt(startPoint.substring(1));
-  const endNumber = parseInt(endPoint.substring(1));
+  const startLetter = startPoint?.substring(0, 1) ?? "";
+  const endLetter = endPoint?.substring(0, 1) ?? "";
+  const startNumber = parseInt(startPoint?.substring(1) ?? "1");
+  const endNumber = parseInt(endPoint?.substring(1) ?? "1");
   const startLetterPos: number = positionInAlphabet(startLetter);
   const endLetterPos: number = positionInAlphabet(endLetter);
 
@@ -162,8 +162,8 @@ export const addOnDTour = (
   const possibleContinuePath: string[] = [...simplestPath].slice(
     simplestPath.indexOf(possiblePath[possiblePath.length - 1]) + 1
   );
-  const columnNumber: number = parseInt(endPoint.substring(1));
-  const rowLetter: string = endPoint.substring(0, 1);
+  const columnNumber: number = parseInt(endPoint?.substring(1) ?? "1");
+  const rowLetter: string = endPoint?.substring(0, 1) ?? "";
 
   dTours.forEach((dTour) => {
     if (dTour.steps.includes(possiblePath[possiblePath.length - 1])) {
@@ -194,7 +194,9 @@ export const addOnDTour = (
 
   const lastSteps: string[] = goY(
     columnNumber,
-    positionInAlphabet(possiblePath[possiblePath.length - 1].substring(0, 1)),
+    positionInAlphabet(
+      possiblePath[possiblePath.length - 1]?.substring(0, 1) ?? ""
+    ),
     positionInAlphabet(rowLetter)
   );
   possiblePath = [...possiblePath.concat(lastSteps)];
