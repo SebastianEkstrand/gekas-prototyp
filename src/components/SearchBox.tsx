@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import nerSVG from "../assets/ner.svg";
 import closeSVG from "../assets/close.svg";
 import searchSVG from "../assets/search.svg";
-import { IProductCategories, TestData } from "../data/testData";
+import { IProductCategories, TestData, hintCubes } from "../data/testData";
 
 export interface ISearchBoxProps {
   start: IProductCategories | null;
@@ -184,16 +184,39 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
 
           <div className="found-items">
             <ul>
-              {found &&
+              {found && found.length > 0 ? (
                 found.map((row) => (
                   <li key={row.key}>
                     <button onClick={() => selectOption(row)}>
                       {row.title}
                       <span className="area">{row.area}</span>
-                      <span className="cube">{row.cube}</span>
+                      {row.cube.length > 3 ? (
+                        <span className="floor">{row.cube}</span>
+                      ) : (
+                        <span className="cube">{row.cube}</span>
+                      )}
                     </button>
                   </li>
-                ))}
+                ))
+              ) : (
+                <>
+                  <li className="message">
+                    {search.length > 1 && "Inget sökresultat hittades"}
+                  </li>
+                  <li className="title-row">
+                    <h4>Populära produktkategorier</h4>
+                  </li>{" "}
+                  {hintCubes.map((row) => (
+                    <li key={row.key}>
+                      <button onClick={() => selectOption(row)}>
+                        {row.title}
+                        <span className="area">{row.area}</span>
+                        <span className="cube">{row.cube}</span>
+                      </button>
+                    </li>
+                  ))}
+                </>
+              )}
             </ul>
           </div>
         </div>

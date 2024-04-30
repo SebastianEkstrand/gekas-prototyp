@@ -10,6 +10,7 @@
   --border-color: #ddd;
   --dark-border-color: #aaa;
   --text-color: #111;
+  --grey-text-color: #888;
 
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
@@ -255,7 +256,8 @@ button.close-btn img {
   background-color: #ccc;
   padding-bottom: 1px;
   max-height: 100;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .found-items ul {
@@ -265,10 +267,26 @@ button.close-btn img {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
+  max-height: 66vh;
 }
 
 .found-items ul li {
   display: block;
+}
+
+.found-items ul li.message {
+  background-color: white;
+  height: 2rem;
+  padding: 0.25rem 0 0 2rem;
+  color: var(--grey-text-color);
+  border-bottom: 0;
+  margin-bottom: -1px;
+}
+
+.found-items ul li.title-row {
+  background-color: white;
+  padding-top: 4rem;
+  border-top: 0;
 }
 
 .found-items ul li button {
@@ -301,11 +319,30 @@ ol li span.cube {
   border-radius: 0.25rem;
   position: absolute;
   right: 1.5rem;
-  top: 1.25rem;
+  top: 1.5rem;
   width: 2.65rem;
   text-align: center;
   font-weight: 700;
 }
+
+.found-items ul li button span.floor,
+ol li span.floor {
+  /*border: 2px solid var(--border-color);*/
+  background-color: var(--gekas-light-blue);
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: var(--gekas-dark-blue);
+  border-radius: 0.25rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.65rem;
+  width: auto;
+  text-align: center;
+  font-weight: 700;
+}
+
 div.inner-row button span span.cube {
   border: 2px solid var(--border-color);
   padding: 0.4rem 0.5rem;
