@@ -8,9 +8,9 @@ export enum Direction {
 }
 
 export enum Kassorna {
-  FRONT = "Med kassorna framför div",
-  RIGHT = "Med kassorna på din högra sida",
-  LEFT = "Med kassorna på din vänstra sida",
+  FRONT = "Med kassorna framför dig",
+  RIGHT = "Med kassorna åt din högra sida",
+  LEFT = "Med kassorna åt din vänstra sida",
   BACK = "Med kassorna bakom dig",
 }
 
@@ -21,6 +21,8 @@ const getStartDirection = (current: string, next: string): Kassorna => {
 
   const nextRowIndex: number = positionInAlphabet(next.substring(0, 1)) - 1;
   const nextColumIndex: number = parseInt(next.substring(1));
+
+  console.log(nextRowIndex, currentRowIndex, nextColumIndex, currentColumIndex);
 
   if (nextRowIndex > currentRowIndex && nextColumIndex === currentColumIndex) {
     return Kassorna.BACK;
@@ -64,27 +66,32 @@ const directionToTurn = (current: string, next: String): Direction => {
   );
 
   if (nextRowIndex > currentRowIndex && nextColumIndex > currentColumIndex) {
+    console.log("AA", current, next, Direction.RIGHT);
     return Direction.RIGHT;
   } else if (
     nextRowIndex > currentRowIndex &&
     nextColumIndex === currentColumIndex
   ) {
+    console.log("BB", current, next, Direction.LEFT);
     return Direction.LEFT;
   } else if (
     nextRowIndex < currentRowIndex &&
     nextColumIndex === currentColumIndex
   ) {
+    console.log("CC", current, next, Direction.RIGHT);
     return Direction.RIGHT;
   } else if (
     nextRowIndex === currentRowIndex &&
     nextColumIndex > currentColumIndex
   ) {
+    console.log("DD", current, next, Direction.RIGHT);
     return Direction.RIGHT;
   } else if (
     nextRowIndex === currentRowIndex &&
     nextColumIndex < currentColumIndex
   ) {
-    return Direction.LEFT;
+    console.log("EE", current, next, Direction.LEFT);
+    return Direction.RIGHT;
   }
 
   return Direction.FORWARD;
@@ -98,14 +105,14 @@ const moveInXAxis = (current: string, next: String): boolean => {
   const nextRowIndex: number = positionInAlphabet(next.substring(0, 1)) - 1;
   const nextColumIndex: number = parseInt(next.substring(1));
 
-  console.log(
+  /*console.log(
     current.substring(0, 1),
     next.substring(0, 1),
     "nextRowIndex:",
     nextRowIndex,
     "currentRowIndex",
     currentRowIndex
-  );
+  );*/
 
   if (nextRowIndex === currentRowIndex) {
     return true;
@@ -134,11 +141,15 @@ export const calculateDataForDescription = (
     //console.log(step);
     if (step.substring(0, 1) === lastStepLetter) {
       cubesInDirection = cubesInDirection + 1;
+      //console.log("if", cubesInDirection);
     } else if (parseInt(step.substring(1)) === lastStepNumber) {
       cubesInDirection = cubesInDirection + 1;
+      //console.log("else if", cubesInDirection);
     } else {
-      console.log(lastStepLetter, lastStepNumber);
-      cubesInDirection = cubesInDirection + 1;
+      //console.log(lastStepLetter, lastStepNumber);
+
+      //cubesInDirection = cubesInDirection + 1;
+      //console.log("else", cubesInDirection);
       lastStepLetter = step.substring(0, 1);
       lastStepNumber = parseInt(step.substring(1));
 
@@ -168,7 +179,7 @@ export const calculateDataForDescription = (
           xAxis: moveInXAxis(lastStep, step),
         });
 
-        cubesInDirection = 1;
+        cubesInDirection = 0;
       }
     }
     lastStep = step;
@@ -184,6 +195,7 @@ export const calculateDataForDescription = (
     fromCube: cubeBeforeTurn,
     toCube: end,
     xAxis: moveInXAxis(lastStep, calculateSteps[calculateSteps.length - 1]),
+    startDirection: getStartDirection(cubeBeforeTurn, calculateSteps[1]),
   });
 
   return steps;

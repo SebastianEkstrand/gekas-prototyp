@@ -25,8 +25,10 @@ export interface IDTours {
   steps: string[];
 }
 
+export const MAX_COLUMNS: number = 12;
+
 export const NOT_POSSIBLE_MOVEMENTS: string[] = [
-  "B12",
+  "A12",
   "E1",
   "E2",
   "E4",
@@ -56,6 +58,9 @@ export const dTours: IDTours[] = [
   },
   {
     steps: ["F7", "F8", "G8", "H8", "H7"],
+  },
+  {
+    steps: ["A11", "B11", "B12"],
   },
   {
     steps: ["J2", "J3", "J4", "K4"],
