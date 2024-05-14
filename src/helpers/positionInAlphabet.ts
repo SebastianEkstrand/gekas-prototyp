@@ -15,6 +15,9 @@ export const letters: string[] = [
 
 export const positionInAlphabet = (myChar: string) => {
   // Convert the character into lowercase
+  if (myChar === undefined) {
+    return 0;
+  }
   const myCharLowercase = myChar.toUpperCase();
 
   // Find the position of the char in the alphabet

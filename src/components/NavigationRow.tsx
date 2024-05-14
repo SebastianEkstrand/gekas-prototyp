@@ -1,5 +1,6 @@
 import React from "react";
 import { Direction, Kassorna } from "../helpers/makeDesciption";
+import rulltrappa from "../assets/rulltrappa.png";
 
 export interface INavigationRowProps {
   text?: string;
@@ -10,8 +11,10 @@ export interface INavigationRowProps {
   startDirection?: Kassorna | null;
   start?: boolean;
   end?: boolean;
+  icon?: string;
   meters?: number;
   initialInformation: boolean;
+  showOnlyText?: boolean;
 }
 
 export const NavigationRow: React.FC<INavigationRowProps> = ({
@@ -24,38 +27,59 @@ export const NavigationRow: React.FC<INavigationRowProps> = ({
   initialInformation,
   startDirection,
   toCube,
+  icon = "",
+  showOnlyText = false,
 }) => {
-  const textWithTurn =
-    !start &&
-    !end &&
-    `Vid takkub ${cube}, sväng ${
-      direction === Direction.LEFT ? "vänster" : "höger"
-    }`;
+  const textWithTurn = !start && !end && (
+    <>
+      Vid takkub <span>{cube}</span>, sväng{" "}
+      {direction === Direction.LEFT ? "vänster" : "höger"}
+    </>
+  );
 
-  const textForward =
-    !start && !end && `Gå ${meters} m rakt fram mot takkub ${toCube}`;
+  const textForward = !start && !end && (
+    <>
+      Gå <span>{meters} m rakt fram</span> mot takkub <span>{toCube}</span>
+    </>
+  );
 
-  const textForwardWithStartInfo =
-    !start &&
-    !end &&
-    `${startDirection}. Gå ${meters} m rakt fram mot takkub ${toCube}`;
+  const textForwardWithStartInfo = !start && !end && (
+    <>
+      {startDirection}. Gå <span>{meters} m rakt fram</span> mot takkub{" "}
+      <span>{toCube}</span>
+    </>
+  );
+
+  const returnIcon = (icon: string) => {
+    if (icon === "rulltrappa") {
+      return (
+        <span className="icon">
+          <img src={rulltrappa} />
+        </span>
+      );
+    }
+  };
 
   return (
     <li
-      className={`navigation-row ${start ? "start" : ""} ${end ? "end" : ""}`}
+      className={`navigation-row ${start ? "start" : ""} ${end ? "end" : ""} ${
+        cube ? "cube" : ""
+      }`}
     >
       <span className={`indicator ${start || end ? "big" : "small"}`}></span>
       <div className="text-wrapper">
         {start && <h5>Startpunkt</h5>}
         {end && <h5>Slutpunkt</h5>}
         {text && text}
-        {direction !== Direction.FORWARD
-          ? textWithTurn
-          : initialInformation
-          ? textForwardWithStartInfo
-          : textForward}
+        {!showOnlyText &&
+          (direction !== Direction.FORWARD
+            ? textWithTurn
+            : initialInformation
+            ? textForwardWithStartInfo
+            : textForward)}
       </div>
 
+      {icon && returnIcon(icon)}
       {cube && <span className="cube">{cube}</span>}
 
       {start && <span className={`line end-line`} />}

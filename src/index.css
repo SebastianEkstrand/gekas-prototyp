@@ -4,6 +4,7 @@
 
 :root {
   --gekas-gul: #fedb00;
+  --gekas-gul-raw: 254, 219, 0;
   --gekas-light-blue: #e0f0f7;
   --gekas-blue: #0257b8;
   --gekas-dark-blue: #193483;
@@ -11,6 +12,7 @@
   --dark-border-color: #aaa;
   --text-color: #111;
   --grey-text-color: #888;
+  --dark-grey-text-color: #666;
 
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
@@ -144,12 +146,15 @@ div.inner-row button span.content-wrapper {
   align-items: center;
   line-height: 1rem;
   gap: 0.5rem;
+  flex: 1;
 }
 
 div.inner-row button span.content-wrapper span.text-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  width: 100%;
 }
 
 div.inner-row button span.content-wrapper span.text-wrapper h4 {
@@ -158,6 +163,25 @@ div.inner-row button span.content-wrapper span.text-wrapper h4 {
   line-height: 1rem;
   font-size: 0.8rem;
   color: var(--gekas-blue);
+}
+
+div.inner-row button span.content-wrapper span.text-wrapper span.icon {
+  border: 2px solid var(--border-color);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: var(--gekas-dark-blue);
+  border-radius: 0.25rem;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  width: 2.65rem;
+  height: 2.25rem;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  font-weight: 700;
 }
 
 div.inner-row button:hover {
@@ -308,21 +332,73 @@ button.close-btn img {
   cursor: pointer;
 }
 
-.found-items ul li button span.cube,
-ol li span.cube {
+.found-items ul li button span.icon {
   border: 2px solid var(--border-color);
-  padding: 0.35rem 0.5rem;
+  padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
   line-height: 1rem;
   font-weight: bold;
   color: var(--gekas-dark-blue);
   border-radius: 0.25rem;
   position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
+  right: 0;
+  top: 1.35rem;
+  width: 2.5rem;
+  height: 2.25rem;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  font-weight: 700;
+}
+
+.found-items ul li button span.cube,
+ol li span.cube {
+  border: 2px solid var(--border-color);
+  padding: 0.5rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: var(--gekas-dark-blue);
+  border-radius: 0.25rem;
+  position: absolute;
+  right: 0rem;
+  top: 1.35rem;
   width: 2.65rem;
   text-align: center;
   font-weight: 700;
+}
+
+.found-items ul li button span.icon + span.cube {
+  right: 3rem;
+}
+
+ol li span.icon {
+  border: 2px solid var(--border-color);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: var(--gekas-dark-blue);
+  border-radius: 0.25rem;
+  position: absolute;
+  right: 3.5rem;
+  top: 1.35rem;
+  width: 2.5rem;
+  height: 2.25rem;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  font-weight: 700;
+}
+
+ol li span.cube {
+  right: 0;
+}
+
+ol li span.icon img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .found-items ul li button span.floor,
@@ -336,7 +412,7 @@ ol li span.floor {
   color: var(--gekas-dark-blue);
   border-radius: 0.25rem;
   position: absolute;
-  right: 1.5rem;
+  right: 0rem;
   top: 1.65rem;
   width: auto;
   text-align: center;
@@ -412,6 +488,17 @@ li.navigation-row .text-wrapper {
   max-width: calc(100% - 9rem);
 }
 
+li.navigation-row .text-wrapper span {
+  font-weight: 700;
+  color: var(--gekas-dark-blue);
+  /*border-radius: 0.25rem;
+  background-color: rgba(var(--gekas-gul-raw), 0.33);
+  border: 1px solid var(--dark-border-color);
+  margin: 0 0.25rem;
+  word-wrap: none;
+  text-wrap: nowrap;*/
+}
+
 li.navigation-row span.indicator.big {
   content: " ";
   display: flex;
@@ -484,7 +571,7 @@ p.end {
 }
 
 .warehouse-layout {
-  margin: 0 0 2rem 0;
+  margin: 0;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 100%;
@@ -505,18 +592,21 @@ p.end {
   justify-content: center;
   text-align: center;
   font-size: 0.66rem;
+  position: relative;
 }
 
 .warehouse-layout .row .cell.move {
   background-color: #1fa137;
   border: 2px solid #1fa137;
   color: #abdab4;
+  z-index: 5;
 }
 
 .warehouse-layout .row .cell.wall {
   background-color: #ccc;
   color: #ccc;
   border: 2px solid #ccc;
+  z-index: 5;
 }
 
 .warehouse-layout .row .cell.start {
@@ -525,12 +615,36 @@ p.end {
   border: 2px solid #1fa137;
   color: #232104;
   font-size: 1.25rem;
+  z-index: 10;
 }
 .warehouse-layout .row .cell.end {
   background-color: #feea0e;
   color: white;
   border: 0;
   font-size: 1.33rem;
+  z-index: 10;
+}
+
+.warehouse-layout .row .cell.start::after,
+.warehouse-layout .row .cell.end::after {
+  display: block;
+  content: "Start";
+  position: absolute;
+  top: -1.33rem;
+  background-color: var(--gekas-blue);
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  padding: 0 0.75rem;
+  line-height: 1.25rem;
+  height: 1.25rem;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0.25rem 0.5rem;
+}
+
+.warehouse-layout .row .cell.end::after {
+  content: "Mål";
+  display: none;
 }
 
 .guide-modal {
@@ -623,4 +737,39 @@ p.end {
   border: none;
   font-size: 0.8rem;
   font-family: "Open Sans", sans-serif;
+}
+
+.lower-row-warehouse {
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  margin: 0;
+  padding: 0.5rem 0 2rem;
+  gap: 1rem;
+}
+
+.lower-row-warehouse p {
+  margin: 0;
+  padding: 0.5rem 0.25rem;
+  font-weight: 700;
+  text-align: center;
+  align-items: center;
+  line-height: 1rem;
+}
+
+.lower-row-warehouse p.bg {
+  background-color: var(--gekas-light-blue);
+  border: 1px solid var(--gekas-blue);
+  margin: 0.5rem 0;
+  padding: 0.25rem;
+  line-height: 1.5rem;
+}
+
+.simple-info {
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+  font-size: 1.25rem;
+  padding: 2rem 0 0;
+  color: var(--dark-grey-text-color);
+  border-top: 2px dashed var(--border-color);
 }

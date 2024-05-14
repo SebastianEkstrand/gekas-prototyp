@@ -50,10 +50,13 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
 
   var unique: string[] = possiblePathBeforeDRoute(
     findShortestSimplestPath(start.cube, end.cube),
+    start.cube,
     end.cube
   ).filter(function (elem, index, self) {
     return index === self.indexOf(elem);
   });
+
+  console.log("Get Description for:", unique);
 
   const steps: IStepsInformation[] = calculateDataForDescription(unique, end);
 
@@ -87,7 +90,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
               <NavigationRow
                 key={
                   "step_" +
-                  index +
+                  step.cube +
                   "_" +
                   (step.cube
                     ? step.cube
@@ -110,14 +113,16 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
           })}
           <NavigationRow
             initialInformation={false}
-            text={end.title}
+            text={end?.extra ? end.extra : end.title}
             end={end?.extra ? false : true}
             cube={end.cube}
+            icon={end.icon ? end.icon : ""}
+            showOnlyText={end?.extra ? true : false}
           />
           {end.extra && (
             <NavigationRow
               initialInformation={false}
-              text={end.extra}
+              text={end.title}
               end
               cube={""}
             />
@@ -131,33 +136,44 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
         </div>
 
         {showMaze && (
-          <div className="warehouse-layout">
-            {mazeData.map((row) => (
-              <div className="row">
-                {row.cells.map((cell, index) => {
-                  return (
-                    <div
-                      key={
-                        index + "_" + cell + Math.round(Math.random() * 1000)
-                      }
-                      className={`cell ${unique.includes(cell) ? "move" : ""} ${
-                        cell === "-" ? "wall" : ""
-                      }
+          <>
+            <p className="simple-info">Förenklad karta av varuhuset</p>
+            <div className="warehouse-layout">
+              {mazeData.map((row) => (
+                <div className="row">
+                  {row.cells.map((cell, index) => {
+                    return (
+                      <div
+                        key={
+                          index + "_" + cell + Math.round(Math.random() * 1000)
+                        }
+                        className={`cell ${
+                          unique.includes(cell) ? "move" : ""
+                        } ${cell === "-" ? "wall" : ""}
                     ${cell === start.cube ? "start" : ""}
                     ${cell === end.cube ? "end" : ""}
                     `}
-                    >
-                      {cell === start.cube
-                        ? "👋"
-                        : cell === end.cube
-                        ? "🏁"
-                        : cell}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
+                      >
+                        {cell === start.cube
+                          ? "👋"
+                          : cell === end.cube
+                          ? "🏁"
+                          : cell}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            <div className="lower-row-warehouse">
+              <p>
+                ⬆️
+                <br />
+                Entré
+              </p>
+              <p className="bg">Kassorna</p>
+            </div>
+          </>
         )}
       </div>
     </>

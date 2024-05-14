@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import nerSVG from "../assets/ner.svg";
 import closeSVG from "../assets/close.svg";
 import searchSVG from "../assets/search.svg";
+import { useNavigate } from "react-router-dom";
 import { IProductCategories, TestData, hintCubes } from "../data/testData";
+import rulltrappa from "../assets/rulltrappa.png";
 
 export interface ISearchBoxProps {
   start: IProductCategories | null;
@@ -28,6 +30,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
     AutoCompleteType.NONE
   );
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const reset = () => {
     setStartPoint(null);
@@ -52,6 +55,15 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
     setSearch(s);
   };
 
+  const buildURL = () => {
+    if (startPoint && endPoint) {
+      const url = `?start=${startPoint.title}&end=${endPoint.title}`;
+      const escapedUrl = encodeURI(url);
+      console.log("escapedUrl", escapedUrl);
+      navigate(escapedUrl);
+    }
+  };
+
   useEffect(() => {
     if (
       startPoint?.cube &&
@@ -59,6 +71,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
       startPoint.cube !== endPoint.cube
     ) {
       callBack(startPoint, endPoint);
+      buildURL();
     }
   }, [startPoint, endPoint]);
 
@@ -118,6 +131,16 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
     setAutoCompleteMode(AutoCompleteType.NONE);
   };
 
+  const returnIcon = (icon: string) => {
+    if (icon === "rulltrappa") {
+      return (
+        <span className="icon">
+          <img src={rulltrappa} />
+        </span>
+      );
+    }
+  };
+
   return (
     <div className="outer-searchbox">
       <div className="inputs-wrapper">
@@ -148,6 +171,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
                 <span className="text-wrapper">
                   <h4>Slutpunkt</h4>
                   <span className="selected-value">{endPoint.title}</span>
+                  {endPoint.icon && returnIcon(endPoint.icon)}
                 </span>
               </span>
             ) : (
@@ -203,7 +227,10 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
                       {row.cube.length > 3 ? (
                         <span className="floor">{row.cube}</span>
                       ) : (
-                        <span className="cube">{row.cube}</span>
+                        <>
+                          {row.icon && returnIcon(row.icon)}
+                          <span className="cube">{row.cube}</span>
+                        </>
                       )}
                     </button>
                   </li>

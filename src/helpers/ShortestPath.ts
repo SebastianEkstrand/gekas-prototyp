@@ -113,6 +113,8 @@ export const findShortestSimplestAlternativePathXY = (
   let alternativeBelow: string[] = [];
   let alternativeEndAbove: string[] = [];
   let alternativeEndBelow: string[] = [];
+  let alternativeEndLeft: string[] = [];
+  let alternativeEndRight: string[] = [];
 
   if (startLetterPos + 1 <= MAX_COLUMNS) {
     alternativeAbove = goXThenY(
@@ -124,6 +126,14 @@ export const findShortestSimplestAlternativePathXY = (
     );
   }
 
+  const obstaclesFoundAbove: number = countCommonItems(
+    alternativeAbove,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeAbove.length > 0 && obstaclesFoundAbove === 0)
+    return alternativeAbove;
+
   if (startLetterPos - 1 > 0) {
     alternativeBelow = goXThenY(
       letters[startLetterPos - 2],
@@ -133,6 +143,14 @@ export const findShortestSimplestAlternativePathXY = (
       endLetterPos
     );
   }
+
+  const obstaclesFoundBelow: number = countCommonItems(
+    alternativeBelow,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeBelow.length > 0 && obstaclesFoundBelow === 0)
+    return alternativeBelow;
 
   if (endLetterPos + 1 <= MAX_COLUMNS) {
     alternativeEndAbove = goXThenY(
@@ -144,6 +162,14 @@ export const findShortestSimplestAlternativePathXY = (
     );
   }
 
+  const obstaclesFoundEndAbove: number = countCommonItems(
+    alternativeEndAbove,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndAbove.length > 0 && obstaclesFoundEndAbove === 0)
+    return alternativeEndAbove;
+
   if (endLetterPos - 1 > 0) {
     alternativeEndBelow = goXThenY(
       letters[startLetterPos - 2],
@@ -154,76 +180,49 @@ export const findShortestSimplestAlternativePathXY = (
     );
   }
 
-  const obstaclesFoundAbove: number = countCommonItems(
-    alternativeAbove,
-    NOT_POSSIBLE_MOVEMENTS
-  );
-  const foundObstaclesBelow: number = countCommonItems(
-    alternativeBelow,
-    NOT_POSSIBLE_MOVEMENTS
-  );
-
-  const obstaclesFoundEndAbove: number = countCommonItems(
-    alternativeEndAbove,
-    NOT_POSSIBLE_MOVEMENTS
-  );
   const foundObstaclesEndBelow: number = countCommonItems(
     alternativeEndBelow,
     NOT_POSSIBLE_MOVEMENTS
   );
 
-  if (
-    alternativeAbove.length > 0 ||
-    alternativeBelow.length > 0 ||
-    alternativeEndAbove.length > 0 ||
-    alternativeEndBelow.length > 0
-  ) {
-    if (foundObstaclesBelow === 0 && obstaclesFoundAbove === 0) {
-      if (
-        alternativeBelow.length > 0 &&
-        alternativeBelow.length > 0 &&
-        alternativeBelow.length < alternativeAbove.length
-      ) {
-        alternativeBelow.unshift(letters[startLetterPos - 1] + startNumber);
+  if (alternativeEndBelow.length > 0 && foundObstaclesEndBelow === 0)
+    return alternativeEndBelow;
 
-        return alternativeBelow;
-      } else {
-        alternativeAbove.unshift(letters[startLetterPos - 1] + startNumber);
-
-        return alternativeAbove;
-      }
-    } else if (alternativeBelow.length > 0 && foundObstaclesBelow === 0) {
-      alternativeBelow.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeBelow;
-    } else if (alternativeAbove.length > 0 && obstaclesFoundAbove === 0) {
-      alternativeAbove.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeAbove;
-    } else if (foundObstaclesEndBelow === 0 && obstaclesFoundEndAbove === 0) {
-      if (
-        alternativeEndBelow.length > 0 &&
-        alternativeEndBelow.length > 0 &&
-        alternativeEndBelow.length < alternativeEndAbove.length
-      ) {
-        alternativeEndBelow.unshift(letters[startLetterPos - 1] + startNumber);
-
-        return alternativeEndBelow;
-      } else {
-        alternativeEndAbove.unshift(letters[startLetterPos - 1] + startNumber);
-
-        return alternativeEndAbove;
-      }
-    } else if (alternativeEndBelow.length > 0 && foundObstaclesEndBelow === 0) {
-      alternativeEndBelow.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeEndBelow;
-    } else if (alternativeEndAbove.length > 0 && obstaclesFoundEndAbove === 0) {
-      alternativeEndAbove.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeEndAbove;
-    }
+  if (endNumber - 1 > 0) {
+    alternativeEndLeft = goXThenY(
+      letters[startLetterPos - 1],
+      startNumber,
+      endNumber - 1,
+      startLetterPos,
+      endLetterPos
+    );
   }
+
+  const obstaclesFoundEndLeft: number = countCommonItems(
+    alternativeEndLeft,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndLeft.length > 0 && obstaclesFoundEndLeft === 0)
+    return alternativeEndLeft;
+
+  if (endNumber + 1 <= MAX_COLUMNS) {
+    alternativeEndRight = goXThenY(
+      letters[startLetterPos - 1],
+      startNumber,
+      endNumber + 1,
+      startLetterPos,
+      endLetterPos
+    );
+  }
+
+  const foundObstaclesEndRight: number = countCommonItems(
+    alternativeEndRight,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndRight.length > 0 && foundObstaclesEndRight === 0)
+    return alternativeEndRight;
 
   return [];
 };
@@ -238,6 +237,8 @@ export const findShortestSimplestAlternativePathYX = (
   let alternativeRight: string[] = [];
   let alternativeEndLeft: string[] = [];
   let alternativeEndRight: string[] = [];
+  let alternativeEndAbove: string[] = [];
+  let alternativeEndBelow: string[] = [];
 
   if (startNumber - 1 > 0) {
     alternativeLeft = goYThenX(
@@ -249,6 +250,14 @@ export const findShortestSimplestAlternativePathYX = (
     );
   }
 
+  const obstaclesFoundLeft: number = countCommonItems(
+    alternativeLeft,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeLeft.length > 0 && obstaclesFoundLeft === 0)
+    return alternativeLeft;
+
   if (startNumber + 1 <= MAX_COLUMNS) {
     alternativeRight = goYThenX(
       letters[endLetterPos - 1],
@@ -258,6 +267,14 @@ export const findShortestSimplestAlternativePathYX = (
       endLetterPos
     );
   }
+
+  const foundObstaclesRight: number = countCommonItems(
+    alternativeRight,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeRight.length > 0 && foundObstaclesRight === 0)
+    return alternativeRight;
 
   if (endNumber - 1 > 0) {
     alternativeEndLeft = goYThenX(
@@ -269,6 +286,14 @@ export const findShortestSimplestAlternativePathYX = (
     );
   }
 
+  const obstaclesFoundEndLeft: number = countCommonItems(
+    alternativeEndLeft,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndLeft.length > 0 && obstaclesFoundEndLeft === 0)
+    return alternativeEndLeft;
+
   if (endNumber + 1 <= MAX_COLUMNS) {
     alternativeEndRight = goYThenX(
       letters[endLetterPos - 1],
@@ -279,94 +304,50 @@ export const findShortestSimplestAlternativePathYX = (
     );
   }
 
-  console.log(
-    "alternativeLeft",
-    alternativeLeft,
-    "alternativeRight",
-    alternativeRight
-  );
-
-  console.log(
-    "alternativeEndLeft",
-    alternativeEndLeft,
-    "alternativeEndRight",
-    alternativeEndRight
-  );
-
-  const obstaclesFoundLeft: number = countCommonItems(
-    alternativeLeft,
-    NOT_POSSIBLE_MOVEMENTS
-  );
-  const foundObstaclesRight: number = countCommonItems(
-    alternativeRight,
-    NOT_POSSIBLE_MOVEMENTS
-  );
-
-  const obstaclesFoundEndLeft: number = countCommonItems(
-    alternativeEndLeft,
-    NOT_POSSIBLE_MOVEMENTS
-  );
   const foundObstaclesEndRight: number = countCommonItems(
     alternativeEndRight,
     NOT_POSSIBLE_MOVEMENTS
   );
 
-  console.log(
-    "obstaclesFoundLeft",
-    obstaclesFoundLeft,
-    "foundObstaclesRight",
-    foundObstaclesRight
-  );
+  if (alternativeEndRight.length > 0 && foundObstaclesEndRight === 0)
+    return alternativeEndRight;
 
-  console.log(
-    "obstaclesFoundEndLeft",
-    obstaclesFoundEndLeft,
-    "foundObstaclesEndRight",
-    foundObstaclesEndRight
-  );
-
-  if (
-    alternativeRight.length > 0 ||
-    alternativeLeft.length > 0 ||
-    alternativeEndRight.length > 0 ||
-    alternativeEndLeft.length > 0
-  ) {
-    if (obstaclesFoundLeft === 0 && foundObstaclesRight === 0) {
-      if (alternativeLeft.length < alternativeRight.length) {
-        alternativeLeft.unshift(letters[startLetterPos - 1] + startNumber);
-        return alternativeLeft;
-      } else {
-        alternativeRight.unshift(letters[startLetterPos - 1] + startNumber);
-        return alternativeRight;
-      }
-    } else if (obstaclesFoundLeft === 0 && alternativeLeft.length > 0) {
-      alternativeLeft.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeLeft;
-    } else if (foundObstaclesRight === 0 && alternativeRight.length > 0) {
-      alternativeRight.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeRight;
-    } else if (obstaclesFoundEndLeft === 0 && foundObstaclesEndRight === 0) {
-      if (alternativeEndRight.length < alternativeRight.length) {
-        alternativeEndRight.unshift(letters[startLetterPos - 1] + startNumber);
-        return alternativeEndRight;
-      } else {
-        alternativeEndLeft.unshift(letters[startLetterPos - 1] + startNumber);
-        return alternativeEndLeft;
-      }
-    } else if (foundObstaclesEndRight === 0 && alternativeEndRight.length > 0) {
-      alternativeEndRight.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeEndRight;
-    } else if (obstaclesFoundEndLeft === 0 && alternativeEndLeft.length > 0) {
-      alternativeEndLeft.unshift(letters[startLetterPos - 1] + startNumber);
-
-      return alternativeEndLeft;
-    } else {
-      console.log("Can't do it");
-    }
+  if (endLetterPos + 1 <= MAX_COLUMNS) {
+    alternativeEndAbove = goYThenX(
+      letters[endLetterPos + 1],
+      startNumber,
+      endNumber,
+      startLetterPos,
+      endLetterPos
+    );
   }
+
+  const foundObstaclesEndAbove: number = countCommonItems(
+    alternativeEndAbove,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndAbove.length > 0 && foundObstaclesEndAbove === 0)
+    return alternativeEndAbove;
+
+  if (endLetterPos - 1 > 0) {
+    alternativeEndBelow = goYThenX(
+      letters[endLetterPos - 1],
+      startNumber,
+      endNumber,
+      startLetterPos,
+      endLetterPos
+    );
+  }
+
+  const foundObstaclesEndBelow: number = countCommonItems(
+    alternativeEndBelow,
+    NOT_POSSIBLE_MOVEMENTS
+  );
+
+  if (alternativeEndBelow.length > 0 && foundObstaclesEndBelow === 0)
+    return alternativeEndBelow;
+
   return [];
 };
 
@@ -527,6 +508,7 @@ export const addOnDTour = (
 
 export const possiblePathBeforeDRoute = (
   simplestPath: string[],
+  startPoint: string,
   endPoint: string
 ): string[] => {
   let possiblePath: string[] = [];
@@ -544,6 +526,16 @@ export const possiblePathBeforeDRoute = (
 
   if (simplestPath.length !== possiblePath.length) {
     possiblePath = addOnDTour(possiblePath, simplestPath, endPoint);
+  }
+
+  // Adds on last Cube if missing from Alternative routes
+  if (possiblePath[possiblePath.length - 1] !== endPoint) {
+    possiblePath.push(endPoint);
+  }
+
+  // Adds on last Cube if missing from Alternative routes
+  if (possiblePath[0] !== startPoint) {
+    possiblePath.unshift(startPoint);
   }
 
   return possiblePath;

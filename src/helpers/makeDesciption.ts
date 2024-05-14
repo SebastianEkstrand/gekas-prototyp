@@ -47,10 +47,17 @@ const getStartDirection = (current: string, next: string): Kassorna => {
   return Kassorna.BACK;
 };
 
-const directionToTurn = (current: string, next: String): Direction => {
+const directionToTurn = (
+  current: string,
+  next: String,
+  prev: String
+): Direction => {
   const currentRowIndex: number =
     positionInAlphabet(current.substring(0, 1)) - 1;
   const currentColumIndex: number = parseInt(current.substring(1));
+
+  const prevRowIndex: number = positionInAlphabet(prev?.substring(0, 1)) - 1;
+  const prevColumIndex: number = parseInt(prev?.substring(1));
 
   const nextRowIndex: number = positionInAlphabet(next.substring(0, 1)) - 1;
   const nextColumIndex: number = parseInt(next.substring(1));
@@ -73,26 +80,30 @@ const directionToTurn = (current: string, next: String): Direction => {
     nextRowIndex > currentRowIndex &&
     nextColumIndex === currentColumIndex
   ) {
-    console.log("BB", current, next, Direction.LEFT);
-    return Direction.LEFT;
+    console.log("BB", current, next, Direction.RIGHT);
+    return prevColumIndex < currentColumIndex
+      ? Direction.LEFT
+      : Direction.RIGHT;
   } else if (
     nextRowIndex < currentRowIndex &&
     nextColumIndex === currentColumIndex
   ) {
     console.log("CC", current, next, Direction.RIGHT);
-    return Direction.RIGHT;
+    return prevColumIndex < currentColumIndex
+      ? Direction.RIGHT
+      : Direction.LEFT;
   } else if (
     nextRowIndex === currentRowIndex &&
     nextColumIndex > currentColumIndex
   ) {
-    console.log("DD", current, next, Direction.RIGHT);
-    return Direction.RIGHT;
+    console.log("DD", current, next, Direction.LEFT);
+    return prevRowIndex < currentRowIndex ? Direction.RIGHT : Direction.LEFT;
   } else if (
     nextRowIndex === currentRowIndex &&
     nextColumIndex < currentColumIndex
   ) {
-    console.log("EE", current, next, Direction.LEFT);
-    return Direction.RIGHT;
+    console.log("EE", current, next, Direction.RIGHT);
+    return prevRowIndex < currentRowIndex ? Direction.LEFT : Direction.RIGHT;
   }
 
   return Direction.FORWARD;
@@ -140,7 +151,12 @@ export const calculateDataForDescription = (
 
   calculateSteps.forEach((step, index) => {
     //console.log(step);
-    if (step.substring(0, 1) === lastStepLetter) {
+
+    const fromNumber: number =
+      cubeBeforeTurn.length > 0 ? parseInt(cubeBeforeTurn?.substring(1)) : 0;
+    const toNumber: number = parseInt(calculateSteps[index - 1]?.substring(1));
+
+    if (step?.substring(0, 1) === lastStepLetter) {
       cubesInDirection = cubesInDirection + 1;
       //console.log("if", cubesInDirection);
     } else if (parseInt(step.substring(1)) === lastStepNumber) {
@@ -154,9 +170,16 @@ export const calculateDataForDescription = (
       lastStepLetter = step.substring(0, 1);
       lastStepNumber = parseInt(step.substring(1));
 
+      console.log("Steps before turn:", toNumber - fromNumber);
+
+      const fromLessToMore = toNumber - fromNumber;
+      const fromMoreToLess = fromNumber - toNumber;
+
+      const amountToAdd = fromLessToMore > 0 ? fromLessToMore : fromMoreToLess;
+
       if (lastStep !== "") {
         steps.push({
-          cubesInDirection: cubesInDirection,
+          cubesInDirection: amountToAdd > 0 ? amountToAdd : cubesInDirection,
           cube: "",
           fromCube: cubeBeforeTurn,
           toCube: calculateSteps[index - 1],
@@ -172,11 +195,11 @@ export const calculateDataForDescription = (
         cubeBeforeTurn = calculateSteps[index - 1];
 
         steps.push({
-          cubesInDirection: cubesInDirection,
+          cubesInDirection: 0,
           cube: lastStep,
           fromCube: cubeBeforeTurn,
           toCube: calculateSteps[index],
-          direction: directionToTurn(lastStep, step),
+          direction: directionToTurn(lastStep, step, calculateSteps[index - 2]),
           xAxis: moveInXAxis(lastStep, step),
         });
 
