@@ -26,6 +26,7 @@ export interface IStepsInformation {
   toCube?: string;
   xAxis: boolean;
   startDirection?: Kassorna;
+  extra?: string;
 }
 
 export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
@@ -54,10 +55,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
     return index === self.indexOf(elem);
   });
 
-  const steps: IStepsInformation[] = calculateDataForDescription(
-    unique,
-    end.cube
-  );
+  const steps: IStepsInformation[] = calculateDataForDescription(unique, end);
 
   return (
     <>
@@ -113,9 +111,17 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
           <NavigationRow
             initialInformation={false}
             text={end.title}
-            end
+            end={end?.extra ? false : true}
             cube={end.cube}
           />
+          {end.extra && (
+            <NavigationRow
+              initialInformation={false}
+              text={end.extra}
+              end
+              cube={""}
+            />
+          )}
         </ol>
 
         <div className="center">

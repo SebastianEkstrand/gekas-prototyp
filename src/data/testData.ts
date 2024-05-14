@@ -2,8 +2,10 @@ export interface IProductCategories {
   title: string;
   cube: string;
   floor: string;
+  extra?: string;
   area: string[];
   key: number;
+  keywords?: string;
 }
 
 export enum Areas {
@@ -455,6 +457,7 @@ export const hintCubes: IProductCategories[] = [
     cube: "A3",
     floor: "1",
     area: ["Rengöring"],
+    keywords: "rengöring, städa, städartiklar, fönsterputs, fönster",
   },
   {
     key: 20,
@@ -466,9 +469,11 @@ export const hintCubes: IProductCategories[] = [
   {
     key: 24,
     title: "Mammakläder",
-    cube: "F3",
+    cube: "G4",
     floor: "1",
     area: ["Damkläder"],
+    keywords:
+      "Gravidklänning, amningsklänning, mammakläder, Dam, mammakläder, gravidkläder",
   },
   {
     key: 3800,
@@ -476,8 +481,16 @@ export const hintCubes: IProductCategories[] = [
     cube: "G11",
     floor: "1",
     area: ["Lek"],
+    keywords: "Lego, leksaker, minecraft",
   },
-  { key: 34, title: "Babyartiklar", cube: "G12", floor: "1", area: ["Baby"] },
+  {
+    key: 34,
+    title: "Babyartiklar",
+    cube: "G12",
+    floor: "1",
+    area: ["Baby"],
+    keywords: "Baby, bebis, barn, mamma",
+  },
 ];
 
 export const TestData: IProductCategories[] = [
@@ -508,6 +521,7 @@ export const TestData: IProductCategories[] = [
     cube: "A3",
     floor: "1",
     area: ["Rengöring"],
+    keywords: "rengöring, städa, städartiklar, fönsterputs, fönster",
   },
   { key: 10, title: "Kosmetik", cube: "E2", floor: "1", area: [""] },
   {
@@ -556,9 +570,11 @@ export const TestData: IProductCategories[] = [
   {
     key: 24,
     title: "Mammakläder",
-    cube: "F3",
+    cube: "G4",
     floor: "1",
     area: ["Damkläder"],
+    keywords:
+      "Gravidklänning, amningsklänning, mammakläder,Dam, mammakläder, gravidkläder",
   },
   {
     key: 25,
@@ -593,7 +609,14 @@ export const TestData: IProductCategories[] = [
     floor: "1",
     area: ["Väskor"],
   },
-  { key: 33, title: "Baby", cube: "G12", floor: "1", area: [""] },
+  {
+    key: 33,
+    title: "Baby",
+    cube: "G12",
+    floor: "1",
+    area: [""],
+    keywords: "Baby, bebis, barn, mamma",
+  },
   { key: 34, title: "Babyartiklar", cube: "G12", floor: "1", area: ["Baby"] },
   { key: 35, title: "Babyhygien", cube: "G12", floor: "1", area: ["Baby"] },
   { key: 36, title: "Babysängkläder", cube: "G12", floor: "1", area: ["Baby"] },
@@ -850,6 +873,7 @@ export const TestData: IProductCategories[] = [
     cube: "A9",
     floor: "1",
     area: ["Hemtextil"],
+    keywords: "duk, vaxduk, underlägg",
   },
   { key: 91, title: "Handdukar", cube: "B10", floor: "1", area: ["Hemtextil"] },
   { key: 92, title: "Mattor", cube: "B12", floor: "1", area: ["Hemtextil"] },
@@ -949,7 +973,15 @@ export const TestData: IProductCategories[] = [
     floor: "1",
     area: ["Service"],
   },
-  { key: 111, title: "Sportbaren", cube: "E6", floor: "1", area: ["Service"] },
+  {
+    key: 111,
+    title: "Sportbaren",
+    cube: "E6",
+    floor: "1",
+    area: ["Service"],
+    keywords:
+      "bar, mat, restaurang, äta, mellanmål, snacks, O'Learys, Pitcher's, pub",
+  },
   { key: 112, title: "Macka & Jos", cube: "H2", floor: "1", area: ["Service"] },
   { key: 113, title: "Kundtjänst", cube: "C1", floor: "1", area: ["Service"] },
   {
@@ -987,6 +1019,7 @@ export const TestData: IProductCategories[] = [
     cube: "E4",
     floor: "1",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 1151,
@@ -994,6 +1027,7 @@ export const TestData: IProductCategories[] = [
     cube: "C1",
     floor: "1",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 1153,
@@ -1001,6 +1035,7 @@ export const TestData: IProductCategories[] = [
     cube: "Källarplan",
     floor: "0",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 1152,
@@ -1008,6 +1043,7 @@ export const TestData: IProductCategories[] = [
     cube: "D1",
     floor: "1",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 117,
@@ -1068,9 +1104,12 @@ export const TestData: IProductCategories[] = [
   {
     key: 123,
     title: "Verktyg & Bilvård",
-    cube: "Källarplan",
+    cube: "J3",
+    extra: "Ta rulltrappan ner till källarplan",
     floor: "0",
     area: [""],
+    keywords:
+      "bilschampo, bilsvamp, avfettning, fälgrengöring, vax, polermedel, glasrengöring, Bilvård, biltillbehör",
   },
   {
     key: 124,
@@ -1205,7 +1244,15 @@ export const TestData: IProductCategories[] = [
   { key: 142, title: "Husvagnsartiklar", cube: "A1", floor: "2", area: [""] },
   { key: 143, title: "Pooltillbehör", cube: "A1", floor: "2", area: [""] },
   { key: 144, title: "Strandtillbehör", cube: "A1", floor: "2", area: [""] },
-  { key: 148, title: "Skor", cube: "Plan 2 Skor", floor: "2", area: [""] },
+  {
+    key: 148,
+    title: "Skor",
+    cube: "F10",
+    extra: "Ta rulltrappan upp till våning 2",
+    floor: "2",
+    area: [""],
+    keywords: "Skor, damskor, herrskor, barnskor",
+  },
   {
     key: 149,
     title: "Damskor",
@@ -1237,9 +1284,11 @@ export const TestData: IProductCategories[] = [
   {
     key: 152,
     title: "Restaurangen",
-    cube: "Plan 3",
+    cube: "I10",
+    extra: "Ta rulltrappan + trappa upp till våning 3",
     floor: "3",
     area: ["Restaurang och kaffe"],
+    keywords: "mat, middag, lunch, lunchmeny",
   },
   {
     key: 1521,
@@ -1261,6 +1310,7 @@ export const TestData: IProductCategories[] = [
     cube: "Plan 3",
     floor: "3",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 1541,
@@ -1282,6 +1332,7 @@ export const TestData: IProductCategories[] = [
     cube: "Plan 2 Barn",
     floor: "2",
     area: ["Service"],
+    keywords: "wc, restroom, bathroom",
   },
   {
     key: 157,

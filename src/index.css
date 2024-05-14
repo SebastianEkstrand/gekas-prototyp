@@ -520,13 +520,14 @@ p.end {
 }
 
 .warehouse-layout .row .cell.start {
-  background-color: #feea0e;
-  border: 0;
+  background-color: #fff;
+
+  border: 2px solid #1fa137;
   color: #232104;
   font-size: 1.25rem;
 }
 .warehouse-layout .row .cell.end {
-  background-color: #0257b8;
+  background-color: #feea0e;
   color: white;
   border: 0;
   font-size: 1.33rem;

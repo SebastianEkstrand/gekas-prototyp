@@ -1,4 +1,5 @@
 import { IStepsInformation } from "../components/NavigationPresenter";
+import { IProductCategories } from "../data/testData";
 import { positionInAlphabet } from "./positionInAlphabet";
 
 export enum Direction {
@@ -125,7 +126,7 @@ const moveInXAxis = (current: string, next: String): boolean => {
 
 export const calculateDataForDescription = (
   calculateSteps: string[],
-  end: string
+  end: IProductCategories
 ) => {
   const steps: IStepsInformation[] = [];
 
@@ -193,7 +194,7 @@ export const calculateDataForDescription = (
       calculateSteps[calculateSteps.length - 1]
     ),
     fromCube: cubeBeforeTurn,
-    toCube: end,
+    toCube: end.cube,
     xAxis: moveInXAxis(lastStep, calculateSteps[calculateSteps.length - 1]),
     startDirection: getStartDirection(cubeBeforeTurn, calculateSteps[1]),
   });

@@ -53,7 +53,11 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
   };
 
   useEffect(() => {
-    if (startPoint?.cube && endPoint?.cube) {
+    if (
+      startPoint?.cube &&
+      endPoint?.cube &&
+      startPoint.cube !== endPoint.cube
+    ) {
       callBack(startPoint, endPoint);
     }
   }, [startPoint, endPoint]);
@@ -85,6 +89,12 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
             return true;
           } else if (
             cat.cube.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+          ) {
+            return true;
+          } else if (
+            cat.keywords
+              ?.toLocaleLowerCase()
+              .includes(search.toLocaleLowerCase())
           ) {
             return true;
           } else {
