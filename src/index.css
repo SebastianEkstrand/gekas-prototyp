@@ -395,10 +395,10 @@ ol li span.cube {
   right: 0;
 }
 
-ol li span.icon img {
+span.icon img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .found-items ul li button span.floor,
