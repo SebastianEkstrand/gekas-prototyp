@@ -214,7 +214,8 @@ export const calculateDataForDescription = (
     cube: "",
     direction: directionToTurn(
       lastStep,
-      calculateSteps[calculateSteps.length - 1]
+      calculateSteps[calculateSteps.length - 1],
+      calculateSteps[calculateSteps.length - 2]
     ),
     fromCube: cubeBeforeTurn,
     toCube: end.cube,
