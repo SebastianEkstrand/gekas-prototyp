@@ -82,6 +82,13 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
   }, [start, end]);
 
   useEffect(() => {
+    if (start !== null) {
+      setStartPoint(start);
+      setEndPoint(end);
+    }
+  }, [start]);
+
+  useEffect(() => {
     // Focus the input field when the component mounts
 
     if (autoCompleteMode !== AutoCompleteType.NONE && inputRef?.current) {

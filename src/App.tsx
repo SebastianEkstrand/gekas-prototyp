@@ -38,8 +38,15 @@ function App() {
   };
 
   const setAsStartPoint = (newStart: IProductCategories) => {
-    setStart(newStart);
-    setEnd(null);
+    const element = document.getElementById("top");
+    element?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      setStart(newStart);
+      setEnd(null);
+    }, 800);
   };
 
   return (
