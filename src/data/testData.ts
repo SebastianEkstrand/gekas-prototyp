@@ -978,7 +978,7 @@ export const TestData: IProductCategories[] = [
   {
     key: 111,
     title: "Sportbaren",
-    cube: "E6",
+    cube: "F6",
     floor: "1",
     area: ["Service"],
     keywords:
