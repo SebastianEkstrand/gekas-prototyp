@@ -156,7 +156,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
 
         <div className="center" id="map">
           <button className="btn white" onClick={() => showHideMap()}>
-            {showMaze ? "Göm navigations karta" : "Visa navigations karta"}
+            {showMaze ? "Göm navigationskarta" : "Visa navigationskarta"}
           </button>
         </div>
 
