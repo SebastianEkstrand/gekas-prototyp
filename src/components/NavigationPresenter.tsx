@@ -58,6 +58,21 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
     return index === self.indexOf(elem);
   });
 
+  const showHideMap = () => {
+    if (!showMaze) {
+      setShowMaze(true);
+
+      setTimeout(() => {
+        const element = document.getElementById("map");
+        element?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 500);
+    } else {
+      setShowMaze(false);
+    }
+  };
+
   console.log("Get Description for:", unique);
 
   const steps: IStepsInformation[] = calculateDataForDescription(unique, end);
@@ -139,8 +154,8 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
           </button>
         </div>
 
-        <div className="center">
-          <button className="btn white" onClick={() => setShowMaze(!showMaze)}>
+        <div className="center" id="map">
+          <button className="btn white" onClick={() => showHideMap()}>
             {showMaze ? "Göm navigations karta" : "Visa navigations karta"}
           </button>
         </div>
