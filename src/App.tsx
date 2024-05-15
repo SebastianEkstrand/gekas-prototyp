@@ -37,6 +37,11 @@ function App() {
     }, 800);
   };
 
+  const setAsStartPoint = (newStart: IProductCategories) => {
+    setStart(newStart);
+    setEnd(null);
+  };
+
   return (
     <>
       <Header />
@@ -49,7 +54,12 @@ function App() {
 
         <SearchBox start={start} end={end} callBack={makeNavDescription} />
         {start && end && (
-          <NavigationPresenter reset={resetNav} start={start} end={end} />
+          <NavigationPresenter
+            reset={resetNav}
+            start={start}
+            end={end}
+            setAsStartPoint={setAsStartPoint}
+          />
         )}
       </main>
 

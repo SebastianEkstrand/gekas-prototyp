@@ -16,6 +16,7 @@ export interface INavigationPresenterProps {
   start: IProductCategories;
   end: IProductCategories;
   reset: () => void;
+  setAsStartPoint: (newStart: IProductCategories) => void;
 }
 
 export interface IStepsInformation {
@@ -33,6 +34,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
   start,
   end,
   reset,
+  setAsStartPoint,
 }) => {
   /**
    *
@@ -128,6 +130,14 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
             />
           )}
         </ol>
+        <div className="new-start-point">
+          <button
+            className="link-button new-start"
+            onClick={() => setAsStartPoint(end)}
+          >
+            Ange {end.title} som startpunkt
+          </button>
+        </div>
 
         <div className="center">
           <button className="btn white" onClick={() => setShowMaze(!showMaze)}>

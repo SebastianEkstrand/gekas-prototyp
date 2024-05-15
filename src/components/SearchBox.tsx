@@ -88,7 +88,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
       setTimeout(() => {
         //@ts-ignore
         inputRef?.current?.focus();
-      }, 350);
+      }, 500);
     }
   }, [autoCompleteMode]);
 
@@ -207,12 +207,13 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
             <input
               className="auto-complete-input"
               type="text"
+              autoFocus
               value={search}
               ref={inputRef}
               onChange={(event) => {
                 onChangeHandler(event.target.value);
               }}
-              placeholder="Ange produktkategori eller Takkub"
+              placeholder="Sök produktkategori eller Takkub"
             />
           </div>
 

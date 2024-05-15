@@ -24,14 +24,15 @@ export const Footer: React.FC<IFooterProps> = ({}) => {
         <div className="image-wrapper">
           <img src={CubePNG} className="cube" />
         </div>
+        <p>Såhär ser en tak-kub ut</p>
         <p>
           <strong>Tak-kuber finns i taket</strong> på plan 1 i varuhuset. De är
           ordnade alfabetiskt från A närmast kassorna till K längst in i
           varuhuset.
         </p>
-        <div className="image-wrapper">
+        {/*<div className="image-wrapper">
           <img src={GridPNG} className="grid-png" />
-        </div>
+  </div>*/}
       </div>
     </>
   );
