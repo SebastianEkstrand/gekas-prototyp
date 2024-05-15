@@ -871,7 +871,7 @@ export const TestData: IProductCategories[] = [
   {
     key: 90,
     title: "Gardiner & Dukar",
-    cube: "A9",
+    cube: "A10",
     floor: "1",
     area: ["Hemtextil"],
     keywords: "duk, vaxduk, underlägg",
