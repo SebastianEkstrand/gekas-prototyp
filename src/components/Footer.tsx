@@ -1,7 +1,6 @@
 import { useState } from "react";
 import closeSVG from "../assets/close.svg";
 import CubePNG from "../assets/cube.png";
-import GridPNG from "../assets/grid-example.png";
 
 export interface IFooterProps {}
 
