@@ -45,8 +45,8 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
    *
    */
   const [showMaze, setShowMaze] = useState<boolean>(false);
-  const distansBetweenLetters: number = 30;
-  const distansBetweenNumbers: number = 25;
+  const distansBetweenLetters: number = 15;
+  const distansBetweenNumbers: number = 15;
 
   var unique: string[] = possiblePathBeforeDRoute(
     findShortestSimplestPath(start.cube, end.cube),

@@ -39,13 +39,13 @@ export const NavigationRow: React.FC<INavigationRowProps> = ({
 
   const textForward = !start && !end && (
     <>
-      Gå <span>{meters} m rakt fram</span> mot takkub <span>{toCube}</span>
+      Gå <span>ca {meters} m rakt fram</span> mot takkub <span>{toCube}</span>
     </>
   );
 
   const textForwardWithStartInfo = !start && !end && (
     <>
-      {startDirection}. Gå <span>{meters} m rakt fram</span> mot takkub{" "}
+      {startDirection}. Gå <span>ca {meters} m rakt fram</span> mot takkub{" "}
       <span>{toCube}</span>
     </>
   );
