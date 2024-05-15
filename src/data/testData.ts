@@ -985,7 +985,7 @@ export const TestData: IProductCategories[] = [
       "bar, mat, restaurang, äta, mellanmål, snacks, O'Learys, Pitcher's, pub",
   },
   { key: 112, title: "Macka & Jos", cube: "H2", floor: "1", area: ["Service"] },
-  { key: 113, title: "Kundtjänst", cube: "C1", floor: "1", area: ["Service"] },
+  { key: 113, title: "Kundtjänst", cube: "B1", floor: "1", area: ["Service"] },
   {
     key: 1130,
     title: "Kundvagnsparkering",
