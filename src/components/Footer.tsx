@@ -1,6 +1,7 @@
 import { useState } from "react";
 import closeSVG from "../assets/close.svg";
 import CubePNG from "../assets/cube.png";
+import GridPNG from "../assets/grid-example.png";
 
 export interface IFooterProps {}
 
@@ -29,9 +30,9 @@ export const Footer: React.FC<IFooterProps> = ({}) => {
           ordnade alfabetiskt från A närmast kassorna till K längst in i
           varuhuset.
         </p>
-        {/*<div className="image-wrapper">
+        <div className="image-wrapper">
           <img src={GridPNG} className="grid-png" />
-  </div>*/}
+        </div>
       </div>
     </>
   );
