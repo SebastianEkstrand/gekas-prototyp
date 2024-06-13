@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import nerSVG from "../assets/ner.svg";
 
 import searchSVG from "../assets/search.svg";
 import { useNavigate } from "react-router-dom";
-import { IProductCategories, TestData, hintCubes } from "../data/testData";
+import { IProductCategories } from "../data/testData";
 import rulltrappa from "../assets/rulltrappa.png";
 import { SearchModal } from "./SearchModal/SearchModal";
 
@@ -23,14 +23,11 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
   end,
   callBack,
 }) => {
-  const [search, setSearch] = useState<string>("");
   const [startPoint, setStartPoint] = useState<IProductCategories | null>(null);
   const [endPoint, setEndPoint] = useState<IProductCategories | null>(null);
-  const [found, setFound] = useState<IProductCategories[]>([]);
   const [autoCompleteMode, setAutoCompleteMode] = useState<AutoCompleteType>(
     AutoCompleteType.NONE
   );
-  const inputRef = useRef(null);
   const navigate = useNavigate();
 
   const reset = () => {
@@ -40,20 +37,14 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
 
   const setStartingPoint = () => {
     setAutoCompleteMode(AutoCompleteType.START);
-    setSearch("");
   };
 
   const setEndingPoint = () => {
     setAutoCompleteMode(AutoCompleteType.END);
-    setSearch("");
   };
 
   const closeModal = () => {
     setAutoCompleteMode(AutoCompleteType.NONE);
-  };
-
-  const onChangeHandler = (s: string) => {
-    setSearch(s);
   };
 
   const buildURL = () => {
@@ -88,35 +79,6 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
       setEndPoint(end);
     }
   }, [start]);
-
-  useEffect(() => {
-    if (search.length >= 2) {
-      const matchingCategories: IProductCategories[] = TestData.filter(
-        (cat) => {
-          if (
-            cat.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-          ) {
-            return true;
-          } else if (
-            cat.cube.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-          ) {
-            return true;
-          } else if (
-            cat.keywords
-              ?.toLocaleLowerCase()
-              .includes(search.toLocaleLowerCase())
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        }
-      );
-      setFound(matchingCategories);
-    } else {
-      setFound([]);
-    }
-  }, [search]);
 
   const selectOption = (sel: IProductCategories) => {
     if (autoCompleteMode === AutoCompleteType.START) {
@@ -188,7 +150,7 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
         }`}
       >
         <SearchModal
-          start={autoCompleteMode === AutoCompleteType.START}
+          start={autoCompleteMode}
           selectOption={selectOption}
           onCloseCallback={closeModal}
         />

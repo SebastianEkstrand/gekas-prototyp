@@ -34,7 +34,6 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
   start,
   end,
   reset,
-  setAsStartPoint,
 }) => {
   /**
    *
