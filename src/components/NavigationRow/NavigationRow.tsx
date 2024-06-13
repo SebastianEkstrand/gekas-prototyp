@@ -1,6 +1,9 @@
 import React from "react";
-import { Direction, Kassorna } from "../helpers/makeDesciption";
-import rulltrappa from "../assets/rulltrappa.png";
+import "./NavigationRow.scss";
+import { Direction, Kassorna } from "../../helpers/makeDesciption";
+import rulltrappa from "../../assets/rulltrappa.svg";
+import left from "../../assets/svangVanster.svg";
+import right from "../../assets/svangHoger.svg";
 
 export interface INavigationRowProps {
   text?: string;
@@ -32,29 +35,42 @@ export const NavigationRow: React.FC<INavigationRowProps> = ({
 }) => {
   const textWithTurn = !start && !end && (
     <>
-      Vid takkub <span>{cube}</span>, sväng{" "}
+      Vid takkub <strong>{cube}</strong>, sväng{" "}
       {direction === Direction.LEFT ? "vänster" : "höger"}
     </>
   );
 
   const textForward = !start && !end && (
     <>
-      Gå <span>ca {meters} m rakt fram</span> mot takkub <span>{toCube}</span>
+      Gå <strong>ca {meters} m rakt fram</strong> mot takkub{" "}
+      <strong>{toCube}</strong>
     </>
   );
 
   const textForwardWithStartInfo = !start && !end && (
     <>
-      {startDirection}. Gå <span>ca {meters} m rakt fram</span> mot takkub{" "}
-      <span>{toCube}</span>
+      {startDirection}. Gå <strong>ca {meters} m rakt fram</strong> mot takkub{" "}
+      <strong>{toCube}</strong>
     </>
   );
 
-  const returnIcon = (icon: string) => {
+  const returnIcon = () => {
     if (icon === "rulltrappa") {
       return (
         <span className="icon">
           <img src={rulltrappa} />
+        </span>
+      );
+    } else if (direction === Direction.LEFT) {
+      return (
+        <span className="icon">
+          <img src={left} />
+        </span>
+      );
+    } else if (direction === Direction.RIGHT) {
+      return (
+        <span className="icon">
+          <img src={right} />
         </span>
       );
     }
@@ -79,8 +95,10 @@ export const NavigationRow: React.FC<INavigationRowProps> = ({
             : textForward)}
       </div>
 
-      {icon && returnIcon(icon)}
-      {cube && <span className="cube">{cube}</span>}
+      <div className="cube-and-icon">
+        {cube && <span className="cube">{cube}</span>}
+        {returnIcon()}
+      </div>
 
       {start && <span className={`line end-line`} />}
       {!start && !end && <span className={`line`} />}

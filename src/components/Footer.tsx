@@ -24,11 +24,15 @@ export const Footer: React.FC<IFooterProps> = ({}) => {
         <div className="image-wrapper">
           <img src={CubePNG} className="cube" />
         </div>
-        <p>Såhär ser en tak-kub ut</p>
+        <p>Tak-kuber finns i taket i varuhuset på plan 1.</p>
+
+        <h5>Alfabetiskt från A till K</h5>
+        <p>A-rad närmast kassorna, K-rad längst in i varuhuset. </p>
+
+        <h5>Numerisk från 1 till 12</h5>
         <p>
-          <strong>Tak-kuber finns i taket</strong> på plan 1 i varuhuset. De är
-          ordnade alfabetiskt från A närmast kassorna till K längst in i
-          varuhuset.
+          1-kolumn startar vid entrén till varuhuset, medans 12 är längst till
+          höger när du kommer in vid entrén.
         </p>
         <div className="image-wrapper">
           <img src={GridPNG} className="grid-png" />

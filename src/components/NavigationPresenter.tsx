@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { IProductCategories, mazeData } from "../data/testData";
-import { NavigationRow } from "./NavigationRow";
+import { NavigationRow } from "./NavigationRow/NavigationRow";
 import {
   findShortestSimplestPath,
   possiblePathBeforeDRoute,
@@ -50,7 +50,7 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
   const distansBetweenLetters: number = 15;
   const distansBetweenNumbers: number = 15;
 
-  var unique: string[] = possiblePathBeforeDRoute(
+  const unique: string[] = possiblePathBeforeDRoute(
     findShortestSimplestPath(start.cube, end.cube),
     start.cube,
     end.cube
@@ -145,14 +145,6 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
             />
           )}
         </ol>
-        <div className="new-start-point">
-          <button
-            className="link-button new-start"
-            onClick={() => setAsStartPoint(end)}
-          >
-            Ange {end.title} som startpunkt
-          </button>
-        </div>
 
         <div className="center" id="map">
           <button className="btn white" onClick={() => showHideMap()}>

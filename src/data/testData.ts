@@ -1,3 +1,9 @@
+export interface ICollectionItem {
+  title: string;
+  color: string;
+  items: IProductCategories[];
+}
+
 export interface IProductCategories {
   title: string;
   cube: string;
@@ -447,6 +453,144 @@ export const mazeData: IRowCells[] = [
       "A10",
       "A11",
       "-",
+    ],
+  },
+];
+
+export const sortiment: ICollectionItem[] = [
+  {
+    title: "Kroppsvård",
+    color: "#EF7A24",
+    items: [
+      {
+        key: 9000,
+        title: "Hårvård",
+        cube: "C2",
+        floor: "1",
+        area: ["Kroppsvård"],
+        keywords: "Schampoo, Hårinpackning, Balsam",
+      },
+      {
+        key: 9001,
+        title: "Kroppsvård",
+        cube: "D2",
+        floor: "1",
+        area: ["Kroppsvård"],
+        keywords: "Tvål, Hudlotion",
+      },
+      {
+        key: 9002,
+        title: "Munvård",
+        cube: "C3",
+        floor: "1",
+        area: ["Kroppsvård"],
+        keywords: "Tandkräm, Tandtråd, Tandblekning",
+      },
+      {
+        key: 9003,
+        title: "Hygienartiklar",
+        cube: "D2",
+        floor: "1",
+        area: ["Kroppsvård"],
+        keywords: "Deodorant, Rakprodukter",
+      },
+    ],
+  },
+  {
+    title: "Rengöring",
+    color: "#EF7A24",
+    items: [
+      {
+        key: 7,
+        title: "Tvättmedel",
+        cube: "A3",
+        floor: "1",
+        area: ["Rengöring"],
+      },
+      {
+        key: 8,
+        title: "Diskmedel",
+        cube: "A3",
+        floor: "1",
+        area: ["Rengöring"],
+      },
+      {
+        key: 9,
+        title: "Rengöringsmedel",
+        cube: "A3",
+        floor: "1",
+        area: ["Rengöring"],
+        keywords: "rengöring, städa, städartiklar, fönsterputs, fönster",
+      },
+    ],
+  },
+  {
+    title: "Kosmetik",
+    color: "#E866A0",
+    items: [
+      { key: 12, title: "Hudvård", cube: "E2", floor: "1", area: ["Kosmetik"] },
+      {
+        key: 13,
+        title: "Hårfärgning",
+        cube: "E2",
+        floor: "1",
+        area: ["Kosmetik"],
+      },
+      {
+        key: 14,
+        title: "Hårstyling",
+        cube: "E2",
+        floor: "1",
+        area: ["Kosmetik"],
+      },
+      {
+        key: 15,
+        title: "Bijouterier",
+        cube: "E2",
+        floor: "1",
+        area: ["Kosmetik"],
+      },
+      {
+        key: 16,
+        title: "Läs- & solglasögon",
+        cube: "E3",
+        floor: "1",
+        area: ["Kosmetik"],
+      },
+    ],
+  },
+  {
+    title: "Herrkläder",
+    color: "#5A2F89",
+    items: [
+      {
+        key: 18,
+        title: "Herrmode",
+        cube: "G1",
+        floor: "1",
+        area: ["Herrkläder"],
+      },
+      {
+        key: 19,
+        title: "Stora Storlekar",
+        cube: "H1",
+        floor: "1",
+        area: ["Herrkläder"],
+      },
+      {
+        key: 20,
+        title: "Ytterkläder",
+        cube: "H1",
+        floor: "1",
+        area: ["Herrkläder"],
+      },
+      {
+        key: 21,
+        title: "Underkläder",
+        cube: "J2",
+        floor: "1",
+        area: ["Herrkläder"],
+      },
     ],
   },
 ];

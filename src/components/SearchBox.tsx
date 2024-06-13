@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import nerSVG from "../assets/ner.svg";
-import closeSVG from "../assets/close.svg";
+
 import searchSVG from "../assets/search.svg";
 import { useNavigate } from "react-router-dom";
 import { IProductCategories, TestData, hintCubes } from "../data/testData";
 import rulltrappa from "../assets/rulltrappa.png";
+import { SearchModal } from "./SearchModal/SearchModal";
 
 export interface ISearchBoxProps {
   start: IProductCategories | null;
@@ -87,17 +88,6 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
       setEndPoint(end);
     }
   }, [start]);
-
-  useEffect(() => {
-    // Focus the input field when the component mounts
-
-    if (autoCompleteMode !== AutoCompleteType.NONE && inputRef?.current) {
-      setTimeout(() => {
-        //@ts-ignore
-        inputRef?.current?.focus();
-      }, 500);
-    }
-  }, [autoCompleteMode]);
 
   useEffect(() => {
     if (search.length >= 2) {
@@ -197,74 +187,11 @@ export const SearchBox: React.FC<ISearchBoxProps> = ({
           autoCompleteMode !== AutoCompleteType.NONE && "show"
         }`}
       >
-        <div className="modal-inner">
-          <button className="close-btn" onClick={closeModal}>
-            <img src={closeSVG} alt="Stäng" />
-          </button>
-          <h3>
-            {autoCompleteMode === AutoCompleteType.START
-              ? "Ange startpunkt"
-              : autoCompleteMode === AutoCompleteType.END
-              ? "Ange slutpunkt"
-              : ""}
-          </h3>
-
-          <div className="search-wrapper">
-            <img src={searchSVG} />
-            <input
-              className="auto-complete-input"
-              type="text"
-              autoFocus
-              value={search}
-              ref={inputRef}
-              onChange={(event) => {
-                onChangeHandler(event.target.value);
-              }}
-              placeholder="Sök produktkategori eller Takkub"
-            />
-          </div>
-
-          <div className="found-items">
-            <ul>
-              {found && found.length > 0 ? (
-                found.map((row) => (
-                  <li key={row.key}>
-                    <button onClick={() => selectOption(row)}>
-                      {row.title}
-                      <span className="area">{row.area}</span>
-                      {row.cube.length > 3 ? (
-                        <span className="floor">{row.cube}</span>
-                      ) : (
-                        <>
-                          {row.icon && returnIcon(row.icon)}
-                          <span className="cube">{row.cube}</span>
-                        </>
-                      )}
-                    </button>
-                  </li>
-                ))
-              ) : (
-                <>
-                  <li className="message">
-                    {search.length > 1 && "Inget sökresultat hittades"}
-                  </li>
-                  <li className="title-row">
-                    <h4>Populära produktkategorier</h4>
-                  </li>{" "}
-                  {hintCubes.map((row) => (
-                    <li key={row.key}>
-                      <button onClick={() => selectOption(row)}>
-                        {row.title}
-                        <span className="area">{row.area}</span>
-                        <span className="cube">{row.cube}</span>
-                      </button>
-                    </li>
-                  ))}
-                </>
-              )}
-            </ul>
-          </div>
-        </div>
+        <SearchModal
+          start={autoCompleteMode === AutoCompleteType.START}
+          selectOption={selectOption}
+          onCloseCallback={closeModal}
+        />
       </div>
     </div>
   );

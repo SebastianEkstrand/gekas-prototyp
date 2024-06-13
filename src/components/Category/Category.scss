@@ -1,0 +1,115 @@
+.category-item {
+  position: relative;
+
+  span.startLine {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 1rem;
+    height: 100%;
+    background-color: green;
+  }
+
+  button.topArea {
+    position: relative;
+    z-index: 0;
+    padding: 1rem 1rem 1rem 3rem;
+    background-color: transparent;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      span.arrow-wrapper {
+        background-color: var(--gekas-light-blue);
+      }
+    }
+  }
+
+  span.arrow-wrapper {
+    position: absolute;
+    right: 1rem;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    border-radius: 1.5rem;
+    top: 50%;
+    margin-top: -1.5rem;
+    transform-origin: center;
+    transition: all 0.3s ease-in-out;
+
+    img.arrow {
+      width: 1.25rem;
+      height: 1.25rem;
+      max-width: 1.25rem;
+    }
+  }
+
+  .topArea {
+    width: 100%;
+    position: relative;
+
+    h5 {
+      margin: 0 0 0.25rem;
+      font-size: var(--font-n);
+      transition: all 0.3s ease-in-out;
+    }
+    p {
+      margin: 0;
+      color: var(--grey-text-color);
+      height: 1rem;
+      opacity: 1;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.open {
+      h5 {
+        margin-top: 1rem;
+        font-size: var(--font-l);
+      }
+      p {
+        opacity: 0;
+        height: 0;
+      }
+
+      img.arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .bottomArea {
+    padding: 0.5rem 1rem 1rem 3rem;
+
+    button.bottom-button {
+      border: 1px solid var(--dark-border-color);
+      padding: 1rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 1.5rem;
+      font-size: var(--font-n);
+      font-weight: bold;
+      width: calc(100% - 2rem);
+      margin: 2rem 1rem;
+      text-align: center;
+      background-color: transparent;
+      cursor: pointer;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &:hover {
+        border-color: var(--text-color);
+      }
+    }
+  }
+}

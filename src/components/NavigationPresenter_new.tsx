@@ -43,62 +43,6 @@ export const NavigationPresenter: React.FC<INavigationPresenterProps> = ({
     return [yVal, xVal];
   };
 
-  /*
-  const closestPath = (start: string, end: string): number => {
-    const m = mazeData.length - 1;
-    const n = mazeData[0].cells.length - 1;
-
-    const startCell: number[] = findCellPosition(start);
-    const endCell: number[] = findCellPosition(end);
-
-    console.log(startCell, endCell);
-
-    const queue = [[[startCell[1], startCell[0]]]];
-    const okMovesToMake = [
-      [-1, 0],
-      [0, -1],
-      [1, 0],
-      [0, 1],
-    ];
-
-    mazeData[startCell[0]].cells[startCell[1]] = "+";
-    let distance = 0;
-
-    while (queue.length > 0) {
-      const tasks = queue.pop() ?? [];
-      const nextTasks = [];
-
-      distance += 1;
-
-      for (let [x, y] of tasks) {
-        for (let [moveX, moveY] of okMovesToMake) {
-          const x2 = x + moveX;
-          const y2 = y + moveY;
-
-          console.log(x2, y2);
-
-          if (x2 >= 0 && y2 >= 0 && x2 <= n && y2 <= m) {
-            if (mazeData[y2].cells[x2] !== "+") {
-              nextTasks.push([x2, y2]);
-
-              mazeData[y2].cells[x2] = "+";
-
-              if (x2 === 0 || y2 === 0 || x2 === n || y2 === m) {
-                return distance;
-              }
-            }
-          }
-        }
-      }
-
-      if (nextTasks.length > 0) {
-        queue.push(nextTasks);
-      }
-    }
-
-    return -1;
-  };*/
-
   const isSafe = (
     mat: IRowCells[],
     visited: IVisitedCells[],
